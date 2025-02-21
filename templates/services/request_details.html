@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Service Request #{{ object.id }}</h2>
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">
+                <strong>Type:</strong> {{ object.get_request_type_display }}<br>
+                <strong>Status:</strong> <span class="badge bg-primary">{{ object.get_status_display }}</span><br>
+                <strong>Submitted:</strong> {{ object.created_at|date:"M d, Y H:i" }}<br>
+                {% if object.resolved_at %}
+                <strong>Resolved:</strong> {{ object.resolved_at|date:"M d, Y H:i" }}
+                {% endif %}
+            </p>
+            <h4>Description</h4>
+            <p>{{ object.description }}</p>
+
+            {% if object.attachment %}
+            <a href="{{ object.attachment.url }}" class="btn btn-secondary">
+                Download Attachment
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
